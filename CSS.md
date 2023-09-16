@@ -21,6 +21,9 @@
 
 （2）**inline：** 元素不会独占一行，设置width、height属性无效。但可以设置水平方向的margin和padding属性，不能设置垂直方向的padding和margin；内部不能放块级元素。
 
+
+
+
 （3）**inline-block：** 将对象设置为inline对象，但对象的内容作为block对象呈现，之后的内联对象会被排列在同一行内。内部可以放块级元素。
 
 
