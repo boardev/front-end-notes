@@ -13,25 +13,23 @@
  */
 ```
 
-[jsPDF + html2canvas A4分页截断 完美解决方案](https://juejin.cn/post/7138370283739545613)
-
-
+[jsPDF + html2canvas A4 paging truncation perfect solution](https://juejin.cn/post/7138370283739545613)
 
 ## iframe print
 
 ```typescript
 let iframe = document.createElement('iframe')
-// MIME类型 or 非同源 url
+// MIME type or non-original URL
 iframe.src = "data:application/pdf..." || url 
 iframe.style.display = "none"
 iframe.onload = () => {
-  // 同一源站策略阻止脚本访问不同源站的内容
+  // The same origin policy prevents scripts from accessing content from different origins
   // throw error:  Blocked a frame with origin "http://localhost:4000" from accessing a cross-origin frame.
   iframe.contentWindow.print()
 }
 ```
 
-可以使用 **URL.createObjectURL** 构建本地 blob url
+Local blob url can be built using **URL.createObjectURL**
 
 ```typescript
 let iframe = document.createElement('iframe');
@@ -41,8 +39,7 @@ const url = URL.createObjectURL(new Blob([doc.output("blob")], { type: "applicat
 iframe.src = url
 iframe.style.display = "none"
 
-// 需要等 iframe 加载完成才打印
-// 不能 remove iframe，否则打印不了
+// You need to wait until the iframe is loaded before printing, cannot remove the iframe, otherwise it will not print.
 iframe.onload = () => {
   iframe.contentWindow.print()
   iframe.onload = null
@@ -57,31 +54,23 @@ iframe.onerror = () => {
 }
 ```
 
-
-
 # keyup 、keydown
 
-在触屏设备上：
-
+On touch screen devices：
 event.keyCode always is 229
-
 event.key always is "Unidentified"
+The input value can be determined through requestAnimationFrame, window.getSelection, event.target
 
-可以通过 requestAnimationFrame 、 window.getSelection 、event.target 判断输入值
-
-
-
-# 光标移动到行后
+# The cursor moves after the line
 
 ```javascript
 requestAnimationFrame(()=>{
   const selection = window.getSelection();
   const range = document.createRange();
-  // childNodes[0]: 文本
+  // childNodes[0]: text
   range.setStart(event.target as HTMLSpanElement).childNodes[0], text.length);
   range.collapse(true);
   selection.removeAllRanges();
   selection.addRange(range);
 })
 ```
-
